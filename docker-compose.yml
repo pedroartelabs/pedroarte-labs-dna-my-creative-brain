@@ -1,0 +1,12 @@
+services:
+  creative-brain:
+    build: .
+    container_name: pacme
+    command: ["demo"]
+    volumes:
+      - ./memory:/app/memory
+      - ./outputs:/app/outputs
+      - ./logs:/app/logs
+    environment:
+      - CREATIVE_BRAIN_LOG_LEVEL=INFO
+      - CREATIVE_BRAIN_LOG_FORMAT=json
