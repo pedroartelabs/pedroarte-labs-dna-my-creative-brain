@@ -25,7 +25,8 @@ CONFIDENTIAL PRIVATE PROPRIETARY EXPERIMENTAL
 
 ## Running
 - `make demo` — one creative cycle offline
-- `make test` — full test suite (501+ tests)
+- `make test` — full test suite (527+ tests)
+- `make vault VAULT=path` — export the creative mind to an Obsidian vault
 - `--mock` flag enables offline mode (MockLLM, no external APIs)
 
 ## Skills

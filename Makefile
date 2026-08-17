@@ -11,7 +11,7 @@ PYTEST  := $(PYTHON) -m pytest
 COV_MIN ?= 85
 
 .PHONY: help install install-dev demo run single-cycle autonomous status clock agents \
-        memory graveyard tournament test test-unit test-fast architecture-test contract-test \
+        memory graveyard tournament vault test test-unit test-fast architecture-test contract-test \
         integration-test property-test regression-test e2e-test coverage lint lint-fix \
         typecheck security check clean reset docker-build docker-run
 
@@ -58,6 +58,9 @@ graveyard: ## Inspect buried ideas
 
 tournament: ## Inspect the latest tournament
 	$(PYTHON) -m creative_brain.cli.main tournament inspect
+
+vault: ## Export the creative mind to an Obsidian vault (VAULT=path)
+	$(PYTHON) -m creative_brain.cli.main --mock --quiet export vault --to "$(VAULT)"
 
 # --- quality ----------------------------------------------------------------
 

@@ -3,6 +3,20 @@
 Todas as mudanças relevantes deste projeto são documentadas aqui.
 O formato segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/).
 
+## [Unreleased]
+
+### Added
+
+- Exportação para vault Obsidian: notas markdown com frontmatter YAML,
+  `[[wikilinks]]` e mapa mental `.canvas`.
+- `VaultExportPort` + `ObsidianVaultAdapter` seguindo a arquitetura hexagonal.
+- Use case `ExportToVault` que mapeia DNA, perguntas, conceitos, cemitério e
+  projetos para uma estrutura navegável.
+- Comando CLI `export vault --to PATH` com `--limit` e `--no-graveyard`.
+- Target `make vault VAULT=path`.
+- `docs/OBSIDIAN.md` com formato, consultas Dataview e setup do MCP server.
+- 26 testes de integração para renderização de notas, canvas e export.
+
 ## [0.1.0] — 2026-08-17
 
 ### Added

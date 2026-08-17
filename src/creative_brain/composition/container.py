@@ -38,6 +38,7 @@ from creative_brain.adapters.persistence import (
 from creative_brain.adapters.production import FilesystemProductionAdapter
 from creative_brain.adapters.prompts import FilePromptLibrary
 from creative_brain.adapters.randomness import SeededRandom
+from creative_brain.adapters.vault import ObsidianVaultAdapter
 from creative_brain.adapters.research import (
     NullSearchProvider,
     OfflineResearchAdapter,
@@ -65,6 +66,7 @@ from creative_brain.domain.services.evaluation import (
 )
 from creative_brain.domain.services.tournament_service import TournamentService
 from creative_brain.ports.outbound.llm import LLMPort, ModelRole
+from creative_brain.ports.outbound.vault import VaultExportPort
 from creative_brain.runtime import AutonomousCreativeRuntime
 
 
@@ -323,4 +325,9 @@ def _instantiate(provider: str, model: str, random_source: SeededRandom) -> LLMP
     )
 
 
-__all__ = ["Brain", "build_brain"]
+def build_vault_exporter(vault_path: Path) -> VaultExportPort:
+    """Pick the vault adapter. Obsidian is the only target today."""
+    return ObsidianVaultAdapter(vault_path)
+
+
+__all__ = ["Brain", "build_brain", "build_vault_exporter"]

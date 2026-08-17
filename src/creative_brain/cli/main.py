@@ -13,7 +13,8 @@ from pathlib import Path
 from typing import Any
 
 from creative_brain import __acronym__, __system_name__, __version__
-from creative_brain.composition import Brain, build_brain
+from creative_brain.application.use_cases.exporting import ExportToVault
+from creative_brain.composition import Brain, build_brain, build_vault_exporter
 from creative_brain.domain.exceptions import CreativeBrainError
 
 BANNER = f"""
@@ -82,6 +83,17 @@ def build_parser() -> argparse.ArgumentParser:
     clock = sub.add_parser("clock", help="biological clock operations")
     clock_sub = clock.add_subparsers(dest="clock_command", required=True)
     clock_sub.add_parser("status", help="show the circadian state")
+
+    export = sub.add_parser("export", help="export the creative mind elsewhere")
+    export_sub = export.add_subparsers(dest="export_command", required=True)
+    export_vault = export_sub.add_parser("vault", help="export to an Obsidian vault")
+    export_vault.add_argument(
+        "--to", dest="vault_path", type=Path, required=True, help="destination vault folder"
+    )
+    export_vault.add_argument("--limit", type=int, default=200, help="max records per kind")
+    export_vault.add_argument(
+        "--no-graveyard", action="store_true", help="skip buried ideas"
+    )
 
     return parser
 
@@ -173,7 +185,29 @@ def _dispatch(args: argparse.Namespace) -> int:
             renderer=_render_clock,
         )
 
+    if args.command == "export":
+        return _export_vault(brain, args)
+
     return 0
+
+
+def _export_vault(brain: Brain, args: argparse.Namespace) -> int:
+    """Render the creative mind into an Obsidian vault."""
+    adapter = build_vault_exporter(args.vault_path.resolve())
+    report = ExportToVault(ctx=brain.context, vault=adapter).execute(
+        limit=args.limit,
+        include_graveyard=not args.no_graveyard,
+    )
+    return _emit(args, report.as_dict(), renderer=_render_export)
+
+
+def _render_export(payload: dict[str, Any]) -> None:
+    print(f"  Vault      : {payload['vault_path']}")
+    print(f"  Notas      : {payload['notes_written']}")
+    print(f"  Mapas      : {payload['canvases_written']}")
+    if payload.get("skipped"):
+        print(f"  Ignoradas  : {payload['skipped']}")
+    print("\n  Abra a pasta no Obsidian e veja 'Mapa Criativo.canvas'.")
 
 
 def _demo(root: Path, args: argparse.Namespace) -> int:

@@ -37,6 +37,7 @@ from creative_brain.adapters.prompts import FilePromptLibrary
 from creative_brain.adapters.randomness import SeededRandom
 from creative_brain.adapters.research import NullSearchProvider
 from creative_brain.adapters.scheduler import InProcessScheduler
+from creative_brain.adapters.vault import ObsidianVaultAdapter
 from creative_brain.ports.outbound.infrastructure import (
     ClockPort,
     EventBusPort,
@@ -69,6 +70,7 @@ from creative_brain.ports.outbound.repositories import (
     SeedRepository,
     TournamentRepository,
 )
+from creative_brain.ports.outbound.vault import VaultExportPort
 
 
 def missing_members(port: type, adapter: object) -> list[str]:
@@ -131,6 +133,7 @@ def cases(tmp_path: Path) -> list[tuple[str, type, object]]:
             FilesystemProductionAdapter("living_book_engine", tmp_path / "handoff"),
         ),
         ("FilePromptLibrary", PromptLibraryPort, FilePromptLibrary(tmp_path / "prompts")),
+        ("ObsidianVaultAdapter", VaultExportPort, ObsidianVaultAdapter(tmp_path / "vault")),
         ("FileObservationRepository", ObservationRepository, FileObservationRepository(tmp_path)),
         ("FileResearchRepository", ResearchRepository, FileResearchRepository(tmp_path)),
         ("FileQuestionRepository", QuestionRepository, FileQuestionRepository(tmp_path)),
