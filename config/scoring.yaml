@@ -1,0 +1,71 @@
+# =============================================================================
+# Scoring, selection and exploration.
+# Weights are NEVER hidden in code. This file is the single source of truth.
+# =============================================================================
+
+weights:
+  originality: 0.20
+  narrative_potential: 0.15
+  depth: 0.15
+  plausibility: 0.10
+  emotional_impact: 0.10
+  commercial_potential: 0.10
+  authorial_identity: 0.10
+  expandability: 0.05
+  audiovisual_potential: 0.05
+
+guards:
+  # Market score can never decide artistic quality on its own (article 13).
+  # ScoringPolicy refuses to start if the commercial weight exceeds this share.
+  max_commercial_share: 0.25
+  # Below this originality a candidate is disqualified whatever else it scored.
+  min_originality: 35.0
+  # A confident rejection from any agent caps the final score at this value.
+  blocked_score_ceiling: 45.0
+
+tournament:
+  # seeds -> 30 concepts -> 10 premises -> 5 pitches -> 4 candidates -> 3 finalists
+  #
+  # The funnel stops at 3 FINALISTS on purpose: picking the single winner is the
+  # CREATIVE_JUDGE_AGENT's job, and the judge must have a real choice to make -
+  # including the choice to reject all three.
+  #
+  # When a cycle produces fewer concepts than the first round is wide, the funnel
+  # is scaled down automatically so every round still eliminates something.
+  funnel:
+    - stage: CONCEPT
+      survivors: 30
+    - stage: PREMISE
+      survivors: 10
+    - stage: PITCH
+      survivors: 5
+    - stage: CANDIDATE
+      survivors: 4
+    - stage: FINALIST
+      survivors: 3
+  # Two survivors of the same round may not be this similar to each other.
+  max_similarity_between_survivors: 0.60
+
+exploration:
+  comfort: 0.30
+  edge: 0.50
+  unknown: 0.20
+
+creative_distance:
+  # Zone boundaries on the 0..100 scale.
+  comfort_max: 40.0
+  edge_max: 75.0
+  # Below this, an idea is treated as a near-copy and disqualified.
+  near_copy_below: 12.0
+  # How much the lexical measurement may move the distance the exploration
+  # policy asked for. Intent leads, measurement corrects: raw word overlap is a
+  # weak proxy for authorial familiarity, so it does not get to decide alone.
+  measurement_weight: 0.35
+
+novelty:
+  # Similarity at or above this counts as a duplicate.
+  duplicate_threshold: 0.62
+
+constitution:
+  min_depth_for_consequence: 30.0
+  min_emotional_impact: 30.0

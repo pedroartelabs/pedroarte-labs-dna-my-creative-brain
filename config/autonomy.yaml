@@ -1,0 +1,74 @@
+# =============================================================================
+# The autonomy envelope.
+#
+#     AUTONOMOUS CREATIVITY + CONTROLLED INFRASTRUCTURE
+#
+# The creative loop needs no human approval. Infrastructure, credentials,
+# publication and money always do. There is no configuration value that can
+# move an item from `restricted` to `autonomous` — the domain refuses.
+# =============================================================================
+
+autonomous:
+  - observe
+  - research
+  - formulate_question
+  - generate_seed
+  - build_concept
+  - combine_concepts
+  - critique
+  - reject_idea
+  - mutate_idea
+  - resurrect_idea
+  - run_tournament
+  - judge
+  - approve_project
+  - archive_project
+  - write_output
+  - consolidate_memory
+  - update_evolving_dna
+  - dream
+  - decide_schedule
+  - start_cycle
+
+restricted:
+  - delete_repository
+  - change_repository_visibility
+  - push_to_remote
+  - publish_externally
+  - send_message
+  - manage_credentials
+  - change_security_policy
+  - modify_source_code
+  - modify_core_dna
+  - modify_constitution
+  - spend_money
+  - delete_memory
+  - install_dependencies
+
+protected_assets:
+  - CORE_DNA
+  - CREATIVE_CONSTITUTION
+  - SECURITY_POLICY
+  - SOURCE_CODE
+  - REPOSITORY_PERMISSIONS
+  - CREDENTIALS
+
+feature_flags:
+  dream_mode_enabled: true
+  external_research_enabled: false
+  mutation_enabled: true
+  unknown_zone_enabled: true
+  production_handoff_enabled: false
+  lore_connections_enabled: true
+  meta_cognition_enabled: true
+
+limits:
+  max_cost_usd_per_cycle: 5.00
+
+self_evaluation:
+  # SELF-EVALUATION != SELF-MODIFYING CODE.
+  enabled: true
+  may_update_evolving_dna: true
+  max_new_dna_entries_per_cycle: 6
+  # Learning may nudge scoring weights, but only inside this band.
+  max_weight_drift: 0.05

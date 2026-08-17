@@ -1,0 +1,147 @@
+# =============================================================================
+# The multi-agent society.
+#
+# Every field here overrides the corresponding field of the default definition
+# in src/creative_brain/agents/definitions.py. Anything omitted keeps its
+# default, so this file stays readable as the society grows.
+#
+# To add an agent: declare it here, write prompts/agents/<prompt>.md, and map
+# its output schema in agents/society.py::OUTPUT_MODELS.
+# =============================================================================
+
+cycle_targets:
+  observations: 8
+  questions_per_observation: 2
+  seeds_per_generator: 4
+  concepts: 12
+  research_topics: 2
+  dream_fragments: 5
+  mutations: 3
+  titles: 3
+
+agents:
+  # --- identity -------------------------------------------------------------
+  PEDRO_DNA_AGENT:
+    enabled: true
+    temperature: 0.3
+    decision_rights: [score, veto]
+
+  # --- perception -----------------------------------------------------------
+  OBSERVER_AGENT:
+    enabled: true
+    temperature: 0.7
+    decision_rights: [observe_only]
+  RESEARCH_AGENT:
+    enabled: true
+    temperature: 0.4
+  CURIOSITY_AGENT:
+    enabled: true
+    temperature: 0.9
+
+  # --- divergent generation -------------------------------------------------
+  WHAT_IF_AGENT:
+    enabled: true
+    temperature: 0.95
+  CONCEPT_COLLIDER_AGENT:
+    enabled: true
+    temperature: 1.0
+  INVERSION_AGENT:
+    enabled: true
+    temperature: 0.9
+  PARADOX_AGENT:
+    enabled: true
+    temperature: 0.9
+  THE_UNKNOWN_AGENT:
+    enabled: true
+    temperature: 1.0
+
+  # --- construction ---------------------------------------------------------
+  CONCEPT_BUILDER:
+    enabled: true
+    temperature: 0.85
+  WORLD_ARCHITECT_AGENT:
+    enabled: true
+    temperature: 0.7
+  CHARACTER_ARCHITECT_AGENT:
+    enabled: true
+    temperature: 0.75
+  EXTREME_CONSEQUENCE_AGENT:
+    enabled: true
+    temperature: 0.6
+  TITLE_AGENT:
+    enabled: true
+    temperature: 0.9
+  PITCH_BUILDER:
+    enabled: true
+    temperature: 0.7
+  SYNOPSIS_BUILDER:
+    enabled: true
+    temperature: 0.7
+
+  # --- criticism ------------------------------------------------------------
+  REALITY_ANCHOR_AGENT:
+    enabled: true
+    temperature: 0.4
+  BRAZILIAN_REALITY_AGENT:
+    enabled: true
+    temperature: 0.5
+  HUMAN_DRAMA_AGENT:
+    enabled: true
+    temperature: 0.6
+  ELEGANCE_AGENT:
+    enabled: true
+    temperature: 0.5
+  ANTI_CLICHE_AGENT:
+    enabled: true
+    temperature: 0.4
+  NOVELTY_AGENT:
+    enabled: true
+    temperature: 0.3
+  MARKET_AGENT:
+    enabled: true
+    temperature: 0.5
+  RED_TEAM_AGENT:
+    enabled: true
+    temperature: 0.6
+  BLUE_TEAM_AGENT:
+    enabled: true
+    temperature: 0.6
+
+  # --- judgement ------------------------------------------------------------
+  CREATIVE_JUDGE_AGENT:
+    enabled: true
+    temperature: 0.2
+    decision_rights: [decide, veto]
+
+  # --- subconscious and learning -------------------------------------------
+  DREAM_AGENT:
+    enabled: true
+    temperature: 1.0
+  MUTATION_AGENT:
+    enabled: true
+    temperature: 0.9
+  OBSESSION_AGENT:
+    enabled: true
+    temperature: 0.4
+  LORE_CONNECTION_AGENT:
+    enabled: true
+    temperature: 0.7
+  MEMORY_AGENT:
+    enabled: true
+    temperature: 0.3
+    decision_rights: [learn]
+  LEARNING_AGENT:
+    enabled: true
+    temperature: 0.35
+    decision_rights: [learn]
+  META_COGNITION_AGENT:
+    enabled: true
+    temperature: 0.4
+
+  # --- rhythm ---------------------------------------------------------------
+  # Runs on a pure domain policy, not on an LLM, so the rhythm stays
+  # deterministic and replayable. See ADR-005.
+  BIOLOGICAL_CLOCK_AGENT:
+    enabled: true
+    temperature: 0.0
+    decision_rights: [schedule, decide]

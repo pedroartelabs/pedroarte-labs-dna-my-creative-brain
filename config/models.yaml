@@ -1,0 +1,65 @@
+# =============================================================================
+# Model routing.
+#
+# CREATOR != JUDGE and JUDGE != FINAL CRITIC, on purpose: no model is allowed
+# to grade its own homework. See ADR-003.
+# =============================================================================
+
+# mock | anthropic | openai
+provider: mock
+
+routing:
+  research:
+    provider: mock
+    model: mock-research
+  creative:
+    provider: mock
+    model: mock-creative
+  criticism:
+    provider: mock
+    model: mock-critic
+  judging:
+    provider: mock
+    model: mock-judge
+  structuring:
+    provider: mock
+    model: mock-structuring
+  dreaming:
+    provider: mock
+    model: mock-dreaming
+
+# --- example of a real deployment; copy over `routing` above and set the keys
+# --- in .env, then set provider: anthropic
+example_anthropic_routing:
+  research:
+    provider: anthropic
+    model: claude-sonnet-4-5
+  creative:
+    provider: anthropic
+    model: claude-opus-4-5
+  criticism:
+    provider: anthropic
+    model: claude-sonnet-4-5
+  judging:
+    provider: anthropic
+    model: claude-opus-4-5
+  structuring:
+    provider: anthropic
+    model: claude-sonnet-4-5
+  dreaming:
+    provider: anthropic
+    model: claude-haiku-4-5
+
+limits:
+  max_tokens: 2048
+  timeout_seconds: 90
+  rate_limit:
+    max_calls: 120
+    per_seconds: 60
+  retry:
+    max_attempts: 3
+    base_delay_seconds: 0.5
+    max_delay_seconds: 8.0
+  circuit_breaker:
+    failure_threshold: 5
+    reset_after_seconds: 60

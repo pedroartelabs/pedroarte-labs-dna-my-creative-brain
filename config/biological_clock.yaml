@@ -1,0 +1,62 @@
+# =============================================================================
+# The artificial circadian rhythm.
+#
+# This is NOT a cron table. These are the thresholds the CircadianPolicy reads
+# when it decides what the mind should do next. The clock owns WHEN; every
+# other agent owns WHAT, HOW and WHY.
+# =============================================================================
+
+thresholds:
+  # Below these, the corresponding kind of work stops being productive.
+  creative_floor: 25.0
+  research_floor: 20.0
+  critical_floor: 20.0
+
+  # Above this, consolidation pre-empts everything else.
+  memory_pressure_ceiling: 70.0
+
+  # Above this novelty pressure (or below the novelty floor), the mind is
+  # pushed into EXPLORATION, further from the DNA.
+  novelty_pressure_ceiling: 65.0
+  novelty_floor: 40.0
+
+  duplicate_rate_ceiling: 0.35
+  failure_rate_ceiling: 0.30
+
+gates:
+  # Never create straight out of an empty head.
+  min_observations_before_creating: 3
+  # Never run a tournament that cannot actually eliminate anything.
+  min_seeds_before_tournament: 4
+
+budgets:
+  max_llm_calls_per_cycle: 400
+  max_cost_usd_per_cycle: 5.00
+  # The clock consults this before starting further exploration.
+  research_budget_per_cycle: 8
+
+phases:
+  # 0 means "move as fast as the work allows" (demo, tests, single-cycle runs).
+  # In a long-running deployment this is what spreads one creative day over
+  # real hours instead of milliseconds.
+  duration_seconds: 0
+
+  # Energy cost per execution, by gauge. Sleep restores them.
+  cost:
+    AWAKENING: 2.0
+    OBSERVATION: 12.0
+    HUNT: 25.0
+    FOCUS: 10.0
+    CREATION: 30.0
+    DIGESTION: 8.0
+    REFLECTION: 20.0
+    SECOND_WIND: 22.0
+    EXPLORATION: 18.0
+    CONSOLIDATION: 15.0
+    DREAMING: 8.0
+    DEEP_SLEEP: 0.0
+
+toggles:
+  dream_mode_enabled: true
+  exploration_enabled: true
+  second_wind_enabled: true

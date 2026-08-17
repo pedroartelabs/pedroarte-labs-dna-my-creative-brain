@@ -1,0 +1,66 @@
+# --- secrets: never commit ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+credentials.json
+
+# --- python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.python-version
+
+# --- tooling ---
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# --- runtime state (proprietary creative artifacts stay local) ---
+logs/*
+!logs/.gitkeep
+outputs/*
+!outputs/.gitkeep
+memory/.state/
+memory/episodic/*
+!memory/episodic/.gitkeep
+memory/semantic/*
+!memory/semantic/.gitkeep
+memory/creative/*
+!memory/creative/.gitkeep
+memory/rejected/*
+!memory/rejected/.gitkeep
+memory/successful/*
+!memory/successful/.gitkeep
+memory/experiments/*
+!memory/experiments/.gitkeep
+memory/graveyard/*
+!memory/graveyard/.gitkeep
+memory/canon/*
+!memory/canon/.gitkeep
+memory/dead_letter/*
+!memory/dead_letter/.gitkeep
+memory/evolving_dna/*.json
+input/*
+!input/.gitkeep
+!input/README.md
+
+# --- hypothesis ---
+.hypothesis/
+
+# --- os / editors ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

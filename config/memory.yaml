@@ -1,0 +1,65 @@
+# =============================================================================
+# Memory: what is remembered, what fades, what is never thrown away.
+# =============================================================================
+
+policy:
+  # Episodic records lose salience each cycle. Principles and the graveyard
+  # never decay - and nothing is ever deleted, only de-prioritised.
+  episodic_decay_per_cycle: 0.92
+  retrieval_floor: 8.0
+  max_retrieved: 12
+  # A raw event is not a lesson: this many independent events must agree
+  # before MEMORY_AGENT may propose a principle.
+  min_events_per_principle: 2
+  idea_half_life_cycles: 12
+
+# Each subsystem directory is shared: the specialised repositories own their
+# own leaf (observations/, seeds/, concepts/, projects/) and consolidated
+# memory records live under records/.
+subsystems:
+  episodic: memory/episodic/records
+  semantic: memory/semantic/records
+  creative: memory/creative/records
+  rejected: memory/rejected/records
+  successful: memory/successful/records
+  canon: memory/canon/records
+  experimental: memory/experiments/records
+
+specialised:
+  observations: memory/episodic/observations
+  research: memory/episodic/research
+  decisions: memory/episodic/decisions
+  questions: memory/creative/questions
+  seeds: memory/creative/seeds
+  concepts: memory/creative/concepts
+  tournaments: memory/experiments/tournaments
+  dreams: memory/experiments/dreams
+  projects: memory/canon/projects
+
+graveyard:
+  path: memory/graveyard
+  # Ideas are never deleted. Resurrection copies them into a new lineage.
+  never_delete: true
+  min_mutation_potential: 40.0
+
+dna:
+  core_path: memory/core_dna
+  evolving_path: memory/evolving_dna
+  # There is no `core_writable` switch. CORE_DNA is read-only to the engine.
+
+vector_memory:
+  # lexical | faiss | chroma | pgvector | qdrant
+  backend: lexical
+  path: memory/.state/vector_index.json
+  top_k: 5
+
+knowledge_graph:
+  enabled: true
+  path: memory/.state/creative_graph.json
+
+corpus:
+  input_path: input
+  chunk_size: 900
+  # Content stays local. Only the topic string ever leaves the machine, and
+  # only when external_research_enabled is true.
+  keep_local: true
